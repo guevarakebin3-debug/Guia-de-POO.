@@ -1,36 +1,85 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 19: Abstracción en POO</h2>
+<h2>Bloque 19: Relaciones UML en código</h2>
 
 <section class="teoria">
-    <h3>¿Qué es la abstracción?</h3>
-    <p>
-        La <strong>abstracción</strong> consiste en definir métodos que deben ser implementados por las clases hijas, 
-        sin especificar su funcionamiento en la clase base.  
-        En Python se logra usando <code>abc</code> (Abstract Base Classes).
-    </p>
 
+    <h3>1. Asociación</h3>
+    <p><strong>Concepto:</strong> Una clase usa a otra, pero no depende de ella para existir.</p>
     <div class="code-editor">
 <pre><code class="python">
-from abc import ABC, abstractmethod
+class Profesor:
+    def __init__(self, nombre):
+        self.nombre = nombre
 
-# Clase abstracta
-class Figura(ABC):
-    @abstractmethod
-    def area(self):
-        pass
+class Curso:
+    def __init__(self, titulo, profesor):
+        self.titulo = titulo
+        self.profesor = profesor  # asociación
 
-# Clase concreta que implementa el método
-class Circulo(Figura):
-    def __init__(self, radio):
-        self.radio = radio
+p = Profesor("Ana")
+c = Curso("Matemáticas", p)
+print(c.profesor.nombre)  # Ana
+</code></pre>
+    </div>
 
-    def area(self):
-        return 3.14 * self.radio ** 2
+    <h3>2. Agregación</h3>
+    <p><strong>Concepto:</strong> Una clase contiene objetos de otra, pero los objetos pueden existir sin la clase contenedora.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Estudiante:
+    def __init__(self, nombre):
+        self.nombre = nombre
 
-c1 = Circulo(5)
-print("Área del círculo:", c1.area())  # Salida: 78.5
+class Escuela:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.estudiantes = []  # agregación
+
+    def agregar_estudiante(self, estudiante):
+        self.estudiantes.append(estudiante)
+
+e1 = Estudiante("Luis")
+escuela = Escuela("Colegio Central")
+escuela.agregar_estudiante(e1)
+print(escuela.estudiantes[0].nombre)  # Luis
+</code></pre>
+    </div>
+
+    <h3>3. Composición</h3>
+    <p><strong>Concepto:</strong> Una clase crea y controla la vida de los objetos que contiene. Si la clase se destruye, también sus objetos.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Motor:
+    def __init__(self, tipo):
+        self.tipo = tipo
+
+class Auto:
+    def __init__(self, modelo):
+        self.modelo = modelo
+        self.motor = Motor("Gasolina")  # composición
+
+a = Auto("Toyota")
+print(a.motor.tipo)  # Gasolina
+</code></pre>
+    </div>
+
+    <h3>4. Herencia UML</h3>
+    <p><strong>Concepto:</strong> Una clase hija hereda atributos y métodos de la clase padre.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Estudiante(Persona):
+    def __init__(self, nombre, carrera):
+        super().__init__(nombre)
+        self.carrera = carrera
+
+e = Estudiante("Carlos", "Ingeniería")
+print(e.nombre, e.carrera)
 </code></pre>
     </div>
 </section>
@@ -38,64 +87,68 @@ print("Área del círculo:", c1.area())  # Salida: 78.5
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Clase abstracta Animal</h4>
+    <h4>Ejercicio 1: Asociación</h4>
+    <p>Crear clase <code>Libro</code> y clase <code>Autor</code>, donde un libro tiene un autor asociado.</p>
     <div class="code-editor">
 <pre><code class="python">
-from abc import ABC, abstractmethod
+class Autor:
+    def __init__(self, nombre):
+        self.nombre = nombre
 
-class Animal(ABC):
-    @abstractmethod
-    def sonido(self):
-        pass
+class Libro:
+    def __init__(self, titulo, autor):
+        self.titulo = titulo
+        self.autor = autor
 
-class Perro(Animal):
-    def sonido(self):
-        return "Guau"
+a = Autor("Gabriel García Márquez")
+l = Libro("Cien años de soledad", a)
+print(l.autor.nombre)  # Gabriel García Márquez
+</code></pre>
+    </div>
 
-class Gato(Animal):
-    def sonido(self):
-        return "Miau"
+    <h4>Ejercicio 2: Agregación</h4>
+    <p>Crear clase <code>Departamento</code> que contenga empleados.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Empleado:
+    def __init__(self, nombre):
+        self.nombre = nombre
 
-animales = [Perro(), Gato()]
-for a in animales:
-    print(a.sonido())
+class Departamento:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.empleados = []
 
+    def agregar_empleado(self, empleado):
+        self.empleados.append(empleado)
+
+d = Departamento("TI")
+d.agregar_empleado(Empleado("Ana"))
+print(d.empleados[0].nombre)  # Ana
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Composición</h4>
+    <p>Crear clase <code>Casa</code> que contenga objetos <code>Habitacion</code> creados internamente.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Habitacion:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Casa:
+    def __init__(self):
+        self.habitaciones = [Habitacion("Sala"), Habitacion("Cocina")]
+
+c = Casa()
+for h in c.habitaciones:
+    print(h.nombre)
 # Salida:
-# Guau
-# Miau
+# Sala
+# Cocina
 </code></pre>
     </div>
-
-    <h4>Ejercicio 2: Clase abstracta Vehículo</h4>
-    <div class="code-editor">
-<pre><code class="python">
-class Vehiculo(ABC):
-    @abstractmethod
-    def mover(self):
-        pass
-
-class Bicicleta(Vehiculo):
-    def mover(self):
-        return "Avanza con pedales"
-
-class Coche(Vehiculo):
-    def mover(self):
-        return "Avanza con motor"
-
-v1 = Bicicleta()
-v2 = Coche()
-print(v1.mover())  # Avanza con pedales
-print(v2.mover())  # Avanza con motor
-</code></pre>
-    </div>
-
-    <h4>Ejercicio 3: Importancia de la abstracción</h4>
-    <p>
-        La abstracción permite definir contratos claros, asegurando que todas las clases hijas implementen 
-        los métodos necesarios, lo que mejora la consistencia y organización del código.
-    </p>
 </section>
 
-<!-- Botón de regreso -->
 <a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
 {% endblock %}

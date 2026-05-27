@@ -1,25 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 13: Manejo de errores con try/except</h2>
+<h2>Bloque 13: Decoradores en Python</h2>
 
 <section class="teoria">
-    <h3>¿Qué es el manejo de errores?</h3>
+    <h3>¿Qué es un decorador?</h3>
     <p>
-        El manejo de errores permite que el programa no se detenga cuando ocurre una excepción.  
-        En Python usamos <code>try</code> para ejecutar código y <code>except</code> para capturar errores.
+        Un <strong>decorador</strong> es una función que recibe otra función, modifica su comportamiento y retorna una nueva función.  
+        Se aplica con <code>@nombre_decorador</code> antes de la función que se quiere decorar.
     </p>
 
+    <h3>Estructura básica</h3>
     <div class="code-editor">
 <pre><code class="python">
-# Ejemplo básico de manejo de errores
-try:
-    numero = int("abc")  # Esto genera un ValueError
-    print(numero)
-except ValueError:
-    print("Error: no se pudo convertir a número")
+def mi_decorador(funcion_original):
+    def wrapper(*args, **kwargs):
+        print("Antes de ejecutar")
+        resultado = funcion_original(*args, **kwargs)
+        print("Después de ejecutar")
+        return resultado
+    return wrapper
 
-# Salida: Error: no se pudo convertir a número
+@mi_decorador
+def saludar():
+    print("Hola mundo")
+
+saludar()
+# Salida:
+# Antes de ejecutar
+# Hola mundo
+# Después de ejecutar
+</code></pre>
+    </div>
+
+    <h3>Ejemplo práctico: validación</h3>
+    <div class="code-editor">
+<pre><code class="python">
+def validar_division(funcion):
+    def wrapper(a, b):
+        if b == 0:
+            print("Error: división por cero")
+            return None
+        return funcion(a, b)
+    return wrapper
+
+@validar_division
+def dividir(a, b):
+    return a / b
+
+print(dividir(10, 2))  # 5.0
+print(dividir(10, 0))  # Error: división por cero
 </code></pre>
     </div>
 </section>
@@ -27,49 +57,63 @@ except ValueError:
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: División entre cero</h4>
+    <h4>Ejercicio 1: Decorador simple</h4>
     <div class="code-editor">
 <pre><code class="python">
-try:
-    resultado = 10 / 0
-    print(resultado)
-except ZeroDivisionError:
-    print("Error: división entre cero")
+def iniciar(funcion):
+    def wrapper(*args, **kwargs):
+        print("Iniciando ...")
+        return funcion(*args, **kwargs)
+    return wrapper
 
-# Salida: Error: división entre cero
-</code></pre>
-    </div>
+@iniciar
+def hola():
+    print("Hola Denis")
 
-    <h4>Ejercicio 2: Capturar múltiples excepciones</h4>
-    <div class="code-editor">
-<pre><code class="python">
-try:
-    lista = [1, 2, 3]
-    print(lista[5])  # IndexError
-except ValueError:
-    print("Error de valor")
-except IndexError:
-    print("Error: índice fuera de rango")
-
-# Salida: Error: índice fuera de rango
-</code></pre>
-    </div>
-
-    <h4>Ejercicio 3: Uso de finally</h4>
-    <div class="code-editor">
-<pre><code class="python">
-try:
-    archivo = open("datos.txt", "r")
-    contenido = archivo.read()
-    print(contenido)
-except FileNotFoundError:
-    print("Error: archivo no encontrado")
-finally:
-    print("Bloque finally ejecutado siempre")
-
+hola()
 # Salida:
-# Error: archivo no encontrado
-# Bloque finally ejecutado siempre
+# Iniciando ...
+# Hola Denis
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Decorador con validación</h4>
+    <div class="code-editor">
+<pre><code class="python">
+def positivo(funcion):
+    def wrapper(x):
+        if x <= 0:
+            print("Error: debe ser positivo")
+            return None
+        return funcion(x)
+    return wrapper
+
+@positivo
+def cuadrado(x):
+    return x ** 2
+
+print(cuadrado(4))   # 16
+print(cuadrado(-3))  # Error: debe ser positivo
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Decorador de log</h4>
+    <div class="code-editor">
+<pre><code class="python">
+def log(funcion):
+    def wrapper(*args, **kwargs):
+        print("Llamando función ...")
+        return funcion(*args, **kwargs)
+    return wrapper
+
+@log
+def suma(a, b):
+    return a + b
+
+print(suma(2, 3))
+# Salida:
+# Llamando función ...
+# 5
 </code></pre>
     </div>
 </section>

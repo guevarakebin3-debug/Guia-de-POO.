@@ -1,2 +1,36 @@
+pip freeze > requirements.txt
+# Entorno virtual
 .venv/
 venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de logs y temporales
+*.log
+*.tmp
+*.swp
+
+# Configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de entorno
+.env
+*.env
+
+# Archivos de base de datos locales
+*.sqlite3
+
+# Archivos de cobertura y pruebas
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Archivos de empaquetado
+*.egg-info/
+dist/
+build/

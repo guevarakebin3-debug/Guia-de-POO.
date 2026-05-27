@@ -1,25 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 14: Manejo de archivos en Python</h2>
+<h2>Bloque 14: Unpacking (Desempaquetado)</h2>
 
 <section class="teoria">
-    <h3>¿Qué es el manejo de archivos?</h3>
+    <h3>Concepto</h3>
     <p>
-        Python permite trabajar con archivos de texto para guardar y leer información.  
-        Se usa la función <code>open()</code> junto con modos como <code>"r"</code> (leer), <code>"w"</code> (escribir), y <code>"a"</code> (agregar).
+        El <strong>unpacking</strong> consiste en extraer valores de una estructura (lista, tupla, diccionario) 
+        y asignarlos a variables individuales.
     </p>
 
+    <h3>Básico</h3>
     <div class="code-editor">
 <pre><code class="python">
-# Abrimos un archivo en modo escritura
-archivo = open("ejemplo.txt", "w")
+a, b = [1, 2]
+print(a, b)  # 1 2
 
-# Escribimos contenido en el archivo
-archivo.write("Hola Denis, este es un archivo de prueba.")
+a, b, c = (1, 2, 3)
+print(a, b, c)  # 1 2 3
+</code></pre>
+    </div>
 
-# Cerramos el archivo
-archivo.close()
+    <h3>Con operador *</h3>
+    <div class="code-editor">
+<pre><code class="python">
+primero, *resto, ultimo = [1, 2, 3, 4, 5]
+print(primero)  # 1
+print(resto)    # [2, 3, 4]
+print(ultimo)   # 5
+</code></pre>
+    </div>
+
+    <h3>En funciones</h3>
+    <div class="code-editor">
+<pre><code class="python">
+def suma(a, b, c):
+    return a + b + c
+
+numeros = [1, 2, 3]
+print(suma(*numeros))  # 6
+
+dict1 = {"a": 1}
+dict2 = {"b": 2}
+combinado = {**dict1, **dict2}
+print(combinado)  # {'a': 1, 'b': 2}
+</code></pre>
+    </div>
+
+    <h3>En bucles</h3>
+    <div class="code-editor">
+<pre><code class="python">
+coordenadas = [(1, 2), (3, 4), (5, 6)]
+for x, y in coordenadas:
+    print(f"x={x}, y={y}")
+
+# Salida:
+# x=1, y=2
+# x=3, y=4
+# x=5, y=6
 </code></pre>
     </div>
 </section>
@@ -27,45 +65,34 @@ archivo.close()
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Leer el contenido de un archivo</h4>
+    <h4>Ejercicio 1: Desempaquetar tupla</h4>
     <div class="code-editor">
 <pre><code class="python">
-# Abrimos el archivo en modo lectura
-archivo = open("ejemplo.txt", "r")
-
-# Leemos todo el contenido
-contenido = archivo.read()
-print(contenido)  # Salida: Hola Denis, este es un archivo de prueba.
-
-archivo.close()
+primera, *mitad, ultima = (10, 20, 30, 40)
+print(primera)  # 10
+print(mitad)    # [20, 30]
+print(ultima)   # 40
 </code></pre>
     </div>
 
-    <h4>Ejercicio 2: Escribir varias líneas en un archivo</h4>
+    <h4>Ejercicio 2: Usar *lista en función</h4>
     <div class="code-editor">
 <pre><code class="python">
-archivo = open("datos.txt", "w")
+def multiplicar(a, b, c):
+    return a * b * c
 
-archivo.write("Primera línea\n")
-archivo.write("Segunda línea\n")
-archivo.write("Tercera línea\n")
-
-archivo.close()
+lista = [2, 3, 4]
+print(multiplicar(*lista))  # 24
 </code></pre>
     </div>
 
-    <h4>Ejercicio 3: Usar with para manejar archivos automáticamente</h4>
+    <h4>Ejercicio 3: Combinar diccionarios</h4>
     <div class="code-editor">
 <pre><code class="python">
-# El bloque with cierra el archivo automáticamente
-with open("datos.txt", "r") as archivo:
-    for linea in archivo:
-        print(linea.strip())
-
-# Salida:
-# Primera línea
-# Segunda línea
-# Tercera línea
+dict1 = {"x": 1}
+dict2 = {"y": 2}
+dict3 = {**dict1, **dict2}
+print(dict3)  # {'x': 1, 'y': 2}
 </code></pre>
     </div>
 </section>

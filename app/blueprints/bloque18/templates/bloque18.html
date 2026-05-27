@@ -1,40 +1,130 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 18: Polimorfismo en POO</h2>
+<h2>Bloque 18: Principios de POO y conceptos avanzados</h2>
 
 <section class="teoria">
-    <h3>¿Qué es el polimorfismo?</h3>
-    <p>
-        El <strong>polimorfismo</strong> permite que diferentes clases implementen métodos con el mismo nombre, 
-        pero con comportamientos distintos.  
-        Esto facilita trabajar con objetos de distintas clases de manera uniforme.
-    </p>
 
+    <h3>1. Abstracción</h3>
+    <p><strong>Concepto:</strong> Mostrar lo esencial y ocultar lo innecesario. El usuario interactúa con métodos sin conocer la implementación interna.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Calculadora:
+    def sumar(self, a, b):
+        return a + b
+
+calc = Calculadora()
+print(calc.sumar(5, 3))  # 8
+</code></pre>
+    </div>
+
+    <h3>2. Encapsulamiento</h3>
+    <p><strong>Concepto:</strong> Proteger datos controlando acceso a atributos mediante métodos.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Cuenta:
+    def __init__(self):
+        self._saldo = 0  # atributo protegido
+
+    def depositar(self, valor):
+        self._saldo += valor
+
+    def ver_saldo(self):
+        return self._saldo
+
+c = Cuenta()
+c.depositar(100)
+print(c.ver_saldo())  # 100
+</code></pre>
+    </div>
+
+    <h3>3. Herencia</h3>
+    <p><strong>Concepto:</strong> Reutilizar código en clases hijas que heredan atributos y métodos de la clase padre.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Cliente(Persona):
+    def __init__(self, nombre, correo):
+        super().__init__(nombre)
+        self.correo = correo
+
+cli = Cliente("Daniel", "d@mail.com")
+print(cli.nombre, cli.correo)
+</code></pre>
+    </div>
+
+    <h3>4. Polimorfismo</h3>
+    <p><strong>Concepto:</strong> Un mismo método puede tener distintos comportamientos según la clase que lo implemente.</p>
     <div class="code-editor">
 <pre><code class="python">
 class Animal:
-    def hablar(self):
-        print("El animal hace un sonido")
+    def sonido(self): pass
 
 class Perro(Animal):
-    def hablar(self):
-        print("El perro dice: ¡Guau!")
+    def sonido(self): print("Ladra")
 
 class Gato(Animal):
-    def hablar(self):
-        print("El gato dice: ¡Miau!")
+    def sonido(self): print("Maulla")
 
-# Uso polimórfico
-animales = [Perro(), Gato(), Animal()]
+class Vaca(Animal):
+    def sonido(self): print("Muge")
 
-for a in animales:
-    a.hablar()
-
+for animal in [Perro(), Gato(), Vaca()]:
+    animal.sonido()
 # Salida:
-# El perro dice: ¡Guau!
-# El gato dice: ¡Miau!
-# El animal hace un sonido
+# Ladra
+# Maulla
+# Muge
+</code></pre>
+    </div>
+
+    <h3>5. Property</h3>
+    <p><strong>Concepto:</strong> Controlar acceso a atributos con validación usando <code>@property</code> y <code>@setter</code>.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Producto:
+    def __init__(self, nombre, precio):
+        self._nombre = nombre
+        self._precio = precio
+
+    @property
+    def precio(self):
+        return self._precio
+
+    @precio.setter
+    def precio(self, valor):
+        if valor < 0:
+            raise ValueError("Precio inválido")
+        self._precio = valor
+
+p = Producto("Laptop", 900)
+p.precio = 1200
+print(p.precio)  # 1200
+</code></pre>
+    </div>
+
+    <h3>6. Clases abstractas</h3>
+    <p><strong>Concepto:</strong> Definen contratos de comportamiento que deben implementarse en clases hijas.</p>
+    <div class="code-editor">
+<pre><code class="python">
+from abc import ABC, abstractmethod
+
+class Figura(ABC):
+    @abstractmethod
+    def area(self): pass
+
+class Triangulo(Figura):
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
+    def area(self):
+        return (self.base * self.altura) / 2
+
+t = Triangulo(10, 5)
+print(t.area())  # 25.0
 </code></pre>
     </div>
 </section>
@@ -42,72 +132,72 @@ for a in animales:
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Clase Figura con polimorfismo</h4>
+    <h4>Ejercicio 1: Abstracción</h4>
+    <p>Crear clase <code>Triangulo</code> que implemente <code>area()</code> de una clase abstracta <code>Figura</code>.</p>
     <div class="code-editor">
 <pre><code class="python">
-class Figura:
+from abc import ABC, abstractmethod
+
+class Figura(ABC):
+    @abstractmethod
+    def area(self): pass
+
+class Triangulo(Figura):
+    def __init__(self, base, altura):
+        self.base = base
+        self.altura = altura
     def area(self):
-        pass
+        return (self.base * self.altura) / 2
 
-class Circulo(Figura):
-    def __init__(self, radio):
-        self.radio = radio
-
-    def area(self):
-        return 3.14 * self.radio ** 2
-
-class Rectangulo(Figura):
-    def __init__(self, ancho, alto):
-        self.ancho = ancho
-        self.alto = alto
-
-    def area(self):
-        return self.ancho * self.alto
-
-figuras = [Circulo(5), Rectangulo(4, 6)]
-
-for f in figuras:
-    print("Área:", f.area())
-
-# Salida:
-# Área: 78.5
-# Área: 24
+t = Triangulo(10, 5)
+print(t.area())  # 25.0
 </code></pre>
     </div>
 
-    <h4>Ejercicio 2: Polimorfismo con métodos comunes</h4>
+    <h4>Ejercicio 2: Property con validación</h4>
+    <p>Agregar <code>@property</code> con setter a <code>Producto</code> para validar precio >= 0.</p>
     <div class="code-editor">
 <pre><code class="python">
-class Vehiculo:
-    def mover(self):
-        print("El vehículo se mueve")
+class Producto:
+    def __init__(self, nombre, precio):
+        self._nombre = nombre
+        self._precio = precio
 
-class Bicicleta(Vehiculo):
-    def mover(self):
-        print("La bicicleta avanza con pedales")
+    @property
+    def precio(self): return self._precio
 
-class Coche(Vehiculo):
-    def mover(self):
-        print("El coche avanza con motor")
+    @precio.setter
+    def precio(self, valor):
+        if valor < 0: raise ValueError("Precio inválido")
+        self._precio = valor
 
-vehiculos = [Bicicleta(), Coche()]
-
-for v in vehiculos:
-    v.mover()
-
-# Salida:
-# La bicicleta avanza con pedales
-# El coche avanza con motor
+p = Producto("Laptop", 900)
+p.precio = 1200
+print(p.precio)  # 1200
 </code></pre>
     </div>
 
-    <h4>Ejercicio 3: Importancia del polimorfismo</h4>
-    <p>
-        El polimorfismo permite diseñar sistemas flexibles y escalables, donde diferentes clases pueden 
-        responder a las mismas llamadas de métodos de manera específica.
-    </p>
+    <h4>Ejercicio 3: Polimorfismo</h4>
+    <p>Jerarquía: <code>Animal -> Perro, Gato, Vaca</code>, cada uno con su propio <code>sonido()</code>.</p>
+    <div class="code-editor">
+<pre><code class="python">
+class Animal: 
+    def sonido(self): pass
+
+class Perro(Animal): 
+    def sonido(self): print("Ladra")
+
+class Gato(Animal): 
+    def sonido(self): print("Maulla")
+
+class Vaca(Animal): 
+    def sonido(self): print("Muge")
+
+for animal in [Perro(), Gato(), Vaca()]:
+    animal.sonido()
+</code></pre>
+    </div>
 </section>
 
-<!-- Botón de regreso -->
 <a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
 {% endblock %}

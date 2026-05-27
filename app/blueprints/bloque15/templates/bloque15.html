@@ -1,39 +1,55 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 15: Creación de clases y objetos</h2>
+<h2>Bloque 15: Funciones de orden superior</h2>
 
 <section class="teoria">
-    <h3>¿Qué es una clase?</h3>
+    <h3>Concepto</h3>
     <p>
-        Una <strong>clase</strong> es un molde o plantilla que define las características (atributos) 
-        y comportamientos (métodos) de un objeto.
+        Una <strong>función de orden superior</strong> es aquella que recibe otra función como parámetro o devuelve una función.  
+        En Python, ejemplos comunes son <code>map()</code>, <code>filter()</code> y <code>reduce()</code>.
     </p>
 
-    <h3>¿Qué es un objeto?</h3>
-    <p>
-        Un <strong>objeto</strong> es una instancia de una clase, es decir, un ejemplar concreto 
-        creado a partir de esa plantilla.
-    </p>
-
+    <h3>map()</h3>
+    <p>Aplica una función a cada elemento de una colección.</p>
     <div class="code-editor">
 <pre><code class="python">
-# Definimos una clase Persona
-class Persona:
-    def __init__(self, nombre, edad):
-        self.nombre = nombre
-        self.edad = edad
+numeros = [1, 2, 3, 4]
+cuadrados = list(map(lambda x: x ** 2, numeros))
+print(cuadrados)  # [1, 4, 9, 16]
+</code></pre>
+    </div>
 
-    def saludar(self):
-        print("Hola, mi nombre es", self.nombre)
+    <h3>filter()</h3>
+    <p>Filtra elementos según una condición.</p>
+    <div class="code-editor">
+<pre><code class="python">
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+print(pares)  # [2, 4]
+</code></pre>
+    </div>
 
-# Creamos un objeto de la clase Persona
-p1 = Persona("Ana", 25)
+    <h3>reduce()</h3>
+    <p>Reduce la colección a un único valor acumulado.</p>
+    <div class="code-editor">
+<pre><code class="python">
+from functools import reduce
 
-# Usamos sus atributos y métodos
-print(p1.nombre)   # Salida: Ana
-print(p1.edad)     # Salida: 25
-p1.saludar()       # Salida: Hola, mi nombre es Ana
+suma = reduce(lambda x, y: x + y, numeros)
+print(suma)  # 10
+</code></pre>
+    </div>
+
+    <h3>Combinación</h3>
+    <div class="code-editor">
+<pre><code class="python">
+numeros = [1, 2, 3, 4, 5, 6]
+
+resultado = list(
+    map(lambda x: x ** 2,
+        filter(lambda x: x % 2 == 0, numeros))
+)
+print(resultado)  # [4, 16, 36]
 </code></pre>
     </div>
 </section>
@@ -41,39 +57,34 @@ p1.saludar()       # Salida: Hola, mi nombre es Ana
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Crear una clase Coche</h4>
+    <h4>Ejercicio 1: Incrementar con map()</h4>
     <div class="code-editor">
 <pre><code class="python">
-class Coche:
-    def __init__(self, marca, modelo):
-        self.marca = marca
-        self.modelo = modelo
-
-    def mostrar_info(self):
-        print("Marca:", self.marca, "| Modelo:", self.modelo)
-
-# Creamos un objeto
-c1 = Coche("Toyota", "Corolla")
-c1.mostrar_info()  # Salida: Marca: Toyota | Modelo: Corolla
+valores = [2, 4, 6]
+resultado = list(map(lambda x: x + 1, valores))
+print(resultado)  # [3, 5, 7]
 </code></pre>
     </div>
 
-    <h4>Ejercicio 2: Crear varios objetos de la misma clase</h4>
+    <h4>Ejercicio 2: Filtrar mayores a 3</h4>
     <div class="code-editor">
 <pre><code class="python">
-p1 = Persona("Luis", 30)
-p2 = Persona("María", 22)
-
-p1.saludar()  # Salida: Hola, mi nombre es Luis
-p2.saludar()  # Salida: Hola, mi nombre es María
+valores = [1, 2, 3, 4, 5]
+resultado = list(filter(lambda x: x > 3, valores))
+print(resultado)  # [4, 5]
 </code></pre>
     </div>
 
-    <h4>Ejercicio 3: Explica la diferencia entre clase y objeto</h4>
-    <p>
-        La <strong>clase</strong> es la definición o plantilla, mientras que el <strong>objeto</strong> 
-        es una instancia concreta creada a partir de esa clase.
-    </p>
+    <h4>Ejercicio 3: Multiplicar con reduce()</h4>
+    <div class="code-editor">
+<pre><code class="python">
+from functools import reduce
+
+valores = [1, 2, 3, 4]
+resultado = reduce(lambda x, y: x * y, valores)
+print(resultado)  # 24
+</code></pre>
+    </div>
 </section>
 
 <!-- Botón de regreso -->

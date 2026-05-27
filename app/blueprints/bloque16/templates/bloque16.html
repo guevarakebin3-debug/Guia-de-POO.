@@ -1,48 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 16: Encapsulamiento en POO</h2>
+<h2>Bloque 16: Archivos y JSON</h2>
 
 <section class="teoria">
-    <h3>¿Qué es el encapsulamiento?</h3>
-    <p>
-        El <strong>encapsulamiento</strong> consiste en ocultar los detalles internos de una clase y 
-        controlar el acceso a sus atributos y métodos.  
-        En Python se logra usando convenciones como:
-    </p>
+    <h3>Modos de apertura</h3>
     <ul>
-        <li><code>atributo</code> → Público</li>
-        <li><code>_atributo</code> → Protegido (convención)</li>
-        <li><code>__atributo</code> → Privado (name mangling)</li>
+        <li><code>"r"</code> → lectura</li>
+        <li><code>"w"</code> → escritura (sobrescribe)</li>
+        <li><code>"a"</code> → append (agrega al final)</li>
+        <li><code>"x"</code> → crear; error si existe</li>
     </ul>
 
+    <h3>Lectura y escritura de texto</h3>
     <div class="code-editor">
 <pre><code class="python">
-class CuentaBancaria:
-    def __init__(self, titular, saldo):
-        self.titular = titular      # Público
-        self._saldo = saldo         # Protegido
-        self.__pin = "1234"         # Privado
+# Escribir en archivo
+with open("archivo.txt", "w") as f:
+    f.write("Hola mundo\n")
+    f.write("Segunda línea\n")
 
-    def mostrar_saldo(self):
-        print("Saldo:", self._saldo)
+# Leer todo el contenido
+with open("archivo.txt", "r") as f:
+    contenido = f.read()
+    print(contenido)
 
-    def validar_pin(self, pin):
-        if pin == self.__pin:
-            print("Acceso permitido")
-        else:
-            print("Acceso denegado")
+# Leer línea por línea
+with open("archivo.txt", "r") as f:
+    for linea in f:
+        print(linea.strip())
+</code></pre>
+    </div>
 
-cuenta = CuentaBancaria("Denis", 1000)
+    <h3>JSON (JavaScript Object Notation)</h3>
+    <p>
+        JSON es un formato de intercambio de datos basado en pares clave-valor.  
+        En Python se maneja con el módulo <code>json</code>.
+    </p>
+    <div class="code-editor">
+<pre><code class="python">
+import json
 
-# Acceso público
-print(cuenta.titular)  # Salida: Denis
+# Guardar en JSON
+datos = {"nombre": "Juan", "edad": 25, "activo": True}
+with open("datos.json", "w") as f:
+    json.dump(datos, f, indent=2)
 
-# Acceso protegido (convención: no debería usarse fuera de la clase)
-print(cuenta._saldo)   # Salida: 1000
+# Cargar desde JSON
+with open("datos.json", "r") as f:
+    cargado = json.load(f)
+    print(cargado["nombre"])  # Juan
 
-# Acceso privado (genera error)
-# print(cuenta.__pin)  # AttributeError
+# Lista de objetos
+usuarios = [
+    {"nombre": "Ana", "edad": 20},
+    {"nombre": "Luis", "edad": 30}
+]
+with open("usuarios.json", "w") as f:
+    json.dump(usuarios, f)
 </code></pre>
     </div>
 </section>
@@ -50,50 +65,52 @@ print(cuenta._saldo)   # Salida: 1000
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Crear una clase con atributo privado</h4>
+    <h4>Ejercicio 1: Escribir y leer archivo</h4>
     <div class="code-editor">
 <pre><code class="python">
-class Usuario:
-    def __init__(self, nombre, password):
-        self.nombre = nombre
-        self.__password = password
+with open("ejemplo.txt", "w") as f:
+    f.write("Python\n")
 
-    def validar(self, intento):
-        return intento == self.__password
-
-u1 = Usuario("Ana", "secreto")
-print(u1.validar("secreto"))  # True
-print(u1.validar("1234"))     # False
+with open("ejemplo.txt", "r") as f:
+    print(f.read())  # Python
 </code></pre>
     </div>
 
-    <h4>Ejercicio 2: Usar métodos para acceder a atributos privados</h4>
+    <h4>Ejercicio 2: Guardar y cargar JSON</h4>
     <div class="code-editor">
 <pre><code class="python">
-class Producto:
-    def __init__(self, nombre, precio):
-        self.nombre = nombre
-        self.__precio = precio
+import json
 
-    def get_precio(self):
-        return self.__precio
+datos = {"x": 10, "y": 20}
+with open("datos.json", "w") as f:
+    json.dump(datos, f)
 
-    def set_precio(self, nuevo_precio):
-        if nuevo_precio > 0:
-            self.__precio = nuevo_precio
-
-p1 = Producto("Laptop", 1200)
-print(p1.get_precio())  # 1200
-p1.set_precio(1500)
-print(p1.get_precio())  # 1500
+with open("datos.json", "r") as f:
+    cargado = json.load(f)
+    print(cargado)  # {'x': 10, 'y': 20}
 </code></pre>
     </div>
 
-    <h4>Ejercicio 3: Explica la importancia del encapsulamiento</h4>
-    <p>
-        El encapsulamiento protege los datos de accesos indebidos, mantiene la integridad de la información 
-        y permite controlar cómo se modifican los atributos de una clase.
-    </p>
+    <h4>Ejercicio 3: Lista de usuarios en JSON</h4>
+    <div class="code-editor">
+<pre><code class="python">
+usuarios = [
+    {"nombre": "Ana", "edad": 20},
+    {"nombre": "Luis", "edad": 30}
+]
+
+with open("usuarios.json", "w") as f:
+    json.dump(usuarios, f)
+
+with open("usuarios.json", "r") as f:
+    data = json.load(f)
+    for u in data:
+        print(u["nombre"])
+# Salida:
+# Ana
+# Luis
+</code></pre>
+    </div>
 </section>
 
 <!-- Botón de regreso -->

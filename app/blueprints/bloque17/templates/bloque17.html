@@ -1,34 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Bloque 17: Herencia en POO</h2>
+<h2>Bloque 17: Mixins en Python</h2>
 
 <section class="teoria">
-    <h3>¿Qué es la herencia?</h3>
+    <h3>Concepto</h3>
     <p>
-        La <strong>herencia</strong> permite que una clase (hija) reutilice atributos y métodos de otra clase (padre).  
-        Esto favorece la reutilización de código y la organización jerárquica.
+        Un <strong>Mixin</strong> es una clase auxiliar que no se usa sola.  
+        Se diseña para agregar funcionalidad a otras clases mediante herencia, evitando duplicar código.  
+        Por convención, su nombre suele terminar en <code>Mixin</code>.
     </p>
 
+    <h3>Ejemplo básico</h3>
     <div class="code-editor">
 <pre><code class="python">
-# Clase padre
-class Animal:
-    def __init__(self, nombre):
-        self.nombre = nombre
+class ValidacionMixin:
+    """Clase auxiliar - no se instancia sola."""
 
-    def comer(self):
-        print(self.nombre, "está comiendo")
+    def validar_nombre(self, nombre):
+        if not nombre:
+            raise ValueError("Nombre vacío")
 
-# Clase hija que hereda de Animal
-class Perro(Animal):
-    def ladrar(self):
-        print(self.nombre, "dice: ¡Guau!")
+    def validar_edad(self, edad):
+        if edad < 0:
+            raise ValueError("Edad inválida")
 
-# Creamos un objeto de la clase hija
-p1 = Perro("Firulais")
-p1.comer()   # Método heredado → Firulais está comiendo
-p1.ladrar()  # Método propio → Firulais dice: ¡Guau!
+class SistemaEstudiantes(ValidacionMixin):
+    def __init__(self):
+        self.estudiantes = []
+
+    def registrar(self, nombre, edad):
+        self.validar_nombre(nombre)  # método del mixin
+        self.validar_edad(edad)
+        self.estudiantes.append({"nombre": nombre, "edad": edad})
+
+sistema = SistemaEstudiantes()
+sistema.registrar("Daniel", 20)
+print(sistema.estudiantes)
+# [{'nombre': 'Daniel', 'edad': 20}]
+</code></pre>
+    </div>
+
+    <h3>MRO - Orden de Resolución de Métodos</h3>
+    <p>
+        Python busca métodos en el orden de herencia (de izquierda a derecha).
+    </p>
+    <div class="code-editor">
+<pre><code class="python">
+class A:
+    def metodo(self): print("A")
+
+class B:
+    def metodo(self): print("B")
+
+class C(A, B):
+    pass
+
+C().metodo()  # Imprime: A
 </code></pre>
     </div>
 </section>
@@ -36,50 +64,44 @@ p1.ladrar()  # Método propio → Firulais dice: ¡Guau!
 <section class="ejercicios">
     <h3>Ejercicios resueltos</h3>
 
-    <h4>Ejercicio 1: Clase Estudiante que hereda de Persona</h4>
+    <h4>Ejercicio 1: Validar cédula</h4>
     <div class="code-editor">
 <pre><code class="python">
-class Persona:
-    def __init__(self, nombre):
+class ValidacionMixin:
+    def validar_cedula(self, cedula):
+        if len(cedula) != 10 or not cedula.isdigit():
+            raise ValueError("Cédula inválida")
+
+class SistemaEstudiantes(ValidacionMixin):
+    def registrar(self, nombre, edad, cedula):
+        self.validar_cedula(cedula)
+        print(f"Estudiante {nombre} registrado con cédula {cedula}")
+
+sistema = SistemaEstudiantes()
+sistema.registrar("Ana", 22, "1234567890")
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Promedio con Mixin</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class PromedioMixin:
+    def calcular_promedio(self, notas):
+        return sum(notas) / len(notas)
+
+class Estudiante(PromedioMixin):
+    def __init__(self, nombre, notas):
         self.nombre = nombre
+        self.notas = notas
 
-    def presentarse(self):
-        print("Hola, soy", self.nombre)
-
-class Estudiante(Persona):
-    def estudiar(self):
-        print(self.nombre, "está estudiando")
-
-e1 = Estudiante("Ana")
-e1.presentarse()  # Hola, soy Ana
-e1.estudiar()     # Ana está estudiando
+e = Estudiante("Luis", [10, 8, 9])
+print(e.calcular_promedio(e.notas))  # 9.0
 </code></pre>
     </div>
 
-    <h4>Ejercicio 2: Uso de super() para extender el constructor</h4>
-    <div class="code-editor">
-<pre><code class="python">
-class Vehiculo:
-    def __init__(self, marca):
-        self.marca = marca
-
-class Coche(Vehiculo):
-    def __init__(self, marca, modelo):
-        super().__init__(marca)  # Llamamos al constructor de la clase padre
-        self.modelo = modelo
-
-    def mostrar_info(self):
-        print("Marca:", self.marca, "| Modelo:", self.modelo)
-
-c1 = Coche("Toyota", "Corolla")
-c1.mostrar_info()  # Marca: Toyota | Modelo: Corolla
-</code></pre>
-    </div>
-
-    <h4>Ejercicio 3: Explica la importancia de la herencia</h4>
+    <h4>Ejercicio 3: MRO</h4>
     <p>
-        La herencia permite reutilizar código, facilita la extensión de clases y ayuda a organizar jerárquicamente 
-        los objetos en un sistema complejo.
+        Si una clase hereda de <code>A</code> y <code>B</code>, y ambas tienen el mismo método, Python ejecuta el de la primera clase listada en la herencia.
     </p>
 </section>
 
