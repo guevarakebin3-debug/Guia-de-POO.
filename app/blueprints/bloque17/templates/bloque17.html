@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 17: Herencia en POO</h2>
+
+<section class="teoria">
+    <h3>¿Qué es la herencia?</h3>
+    <p>
+        La <strong>herencia</strong> permite que una clase (hija) reutilice atributos y métodos de otra clase (padre).  
+        Esto favorece la reutilización de código y la organización jerárquica.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Clase padre
+class Animal:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def comer(self):
+        print(self.nombre, "está comiendo")
+
+# Clase hija que hereda de Animal
+class Perro(Animal):
+    def ladrar(self):
+        print(self.nombre, "dice: ¡Guau!")
+
+# Creamos un objeto de la clase hija
+p1 = Perro("Firulais")
+p1.comer()   # Método heredado → Firulais está comiendo
+p1.ladrar()  # Método propio → Firulais dice: ¡Guau!
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Clase Estudiante que hereda de Persona</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def presentarse(self):
+        print("Hola, soy", self.nombre)
+
+class Estudiante(Persona):
+    def estudiar(self):
+        print(self.nombre, "está estudiando")
+
+e1 = Estudiante("Ana")
+e1.presentarse()  # Hola, soy Ana
+e1.estudiar()     # Ana está estudiando
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Uso de super() para extender el constructor</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Vehiculo:
+    def __init__(self, marca):
+        self.marca = marca
+
+class Coche(Vehiculo):
+    def __init__(self, marca, modelo):
+        super().__init__(marca)  # Llamamos al constructor de la clase padre
+        self.modelo = modelo
+
+    def mostrar_info(self):
+        print("Marca:", self.marca, "| Modelo:", self.modelo)
+
+c1 = Coche("Toyota", "Corolla")
+c1.mostrar_info()  # Marca: Toyota | Modelo: Corolla
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Explica la importancia de la herencia</h4>
+    <p>
+        La herencia permite reutilizar código, facilita la extensión de clases y ayuda a organizar jerárquicamente 
+        los objetos en un sistema complejo.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 11: Conjuntos en Python</h2>
+
+<section class="teoria">
+    <h3>Concepto</h3>
+    <p>
+        Los <strong>conjuntos</strong> (<code>set</code>) son colecciones sin duplicados y sin orden garantizado.  
+        Se usan para eliminar repetidos y realizar operaciones matemáticas como unión e intersección.
+    </p>
+    <div class="code-editor">
+<pre><code class="python">
+numeros = {1, 2, 2, 3, 3}
+print(numeros)  
+# Salida: {1, 2, 3} → elimina duplicados
+</code></pre>
+    </div>
+
+    <h3>Operaciones matemáticas</h3>
+    <div class="code-editor">
+<pre><code class="python">
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+
+print(A | B)  # Unión → {1,2,3,4,5,6}
+print(A & B)  # Intersección → {3,4}
+print(A - B)  # Diferencia → {1,2}
+print(A ^ B)  # Diferencia simétrica → {1,2,5,6}
+</code></pre>
+    </div>
+
+    <h3>Métodos principales</h3>
+    <div class="code-editor">
+<pre><code class="python">
+conjunto = {1, 2, 3}
+conjunto.add(4)       # Agregar
+conjunto.remove(2)    # Eliminar (error si no existe)
+conjunto.discard(5)   # Eliminar sin error
+print(conjunto)       # {1, 3, 4}
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Operaciones básicas</h4>
+    <div class="code-editor">
+<pre><code class="python">
+A = {1, 2, 3}
+B = {3, 4, 5}
+
+print("Unión:", A | B)          # {1,2,3,4,5}
+print("Intersección:", A & B)   # {3}
+print("Diferencia:", A - B)     # {1,2}
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Eliminar duplicados de una lista</h4>
+    <div class="code-editor">
+<pre><code class="python">
+lista = [1, 2, 2, 3, 3, 3, 4]
+sin_dup = list(set(lista))
+print(sin_dup)  # [1,2,3,4]
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Diferencia simétrica</h4>
+    <div class="code-editor">
+<pre><code class="python">
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+
+resultado = (A | B) - (A & B)
+print(resultado)  # {1,2,5,6}
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 3: Operadores en Python</h2>
+
+<section class="teoria">
+    <h3>Operadores aritméticos</h3>
+    <p>Permiten realizar cálculos matemáticos básicos.</p>
+    <div class="code-editor">
+<pre><code class="python">
+a = 20
+b = 4
+
+print(a + b)  # Suma → 24
+print(a - b)  # Resta → 16
+print(a * b)  # Multiplicación → 80
+print(a / b)  # División decimal → 5.0
+print(a // b) # División entera → 5
+print(a % b)  # Módulo → 0
+print(a ** b) # Potencia → 160000
+</code></pre>
+    </div>
+
+    <h3>Operadores de comparación</h3>
+    <p>Comparan valores y devuelven <code>True</code> o <code>False</code>.</p>
+    <div class="code-editor">
+<pre><code class="python">
+x = 10
+y = 20
+
+print(x == y)  # Igualdad → False
+print(x != y)  # Diferente → True
+print(x > y)   # Mayor → False
+print(x < y)   # Menor → True
+print(x >= 10) # Mayor o igual → True
+print(y <= 20) # Menor o igual → True
+</code></pre>
+    </div>
+
+    <h3>Operadores lógicos</h3>
+    <p>Permiten combinar condiciones.</p>
+    <div class="code-editor">
+<pre><code class="python">
+cond1 = True
+cond2 = False
+
+print(cond1 and cond2) # AND → False
+print(cond1 or cond2)  # OR → True
+print(not cond1)       # NOT → False
+</code></pre>
+    </div>
+
+    <h3>== vs is</h3>
+    <p><code>==</code> compara contenido, <code>is</code> compara referencia en memoria.</p>
+    <div class="code-editor">
+<pre><code class="python">
+a = [1, 2]
+b = [1, 2]
+c = a
+
+print(a == b) # True → mismo contenido
+print(a is b) # False → objetos distintos
+print(a is c) # True → misma referencia
+</code></pre>
+    </div>
+
+    <h3>Precedencia de operadores</h3>
+    <p>Orden en que Python evalúa las operaciones.</p>
+    <div class="code-editor">
+<pre><code class="python">
+x = 2 + 1 * 2 % 2 + (2 ** 1) // 2
+print(x)  # Resultado: 3
+# Orden: ** → % → // → * → + 
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Operadores aritméticos</h4>
+    <div class="code-editor">
+<pre><code class="python">
+a = 15
+b = 6
+print(a + b, a - b, a * b, a / b)
+# Salida: 21 9 90 2.5
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: == vs is</h4>
+    <div class="code-editor">
+<pre><code class="python">
+lista1 = [1, 2, 3]
+lista2 = [1, 2, 3]
+
+print(lista1 == lista2) # True
+print(lista1 is lista2) # False
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Precedencia</h4>
+    <p>
+        Evalúa <code>2 + 1 * 2 % 2 + (2 ** 1)//2</code>.  
+        Resultado: <strong>3</strong> porque se aplica el orden de precedencia.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

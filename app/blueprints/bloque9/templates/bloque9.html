@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 9: Tuplas en Python</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las tuplas?</h3>
+    <p>
+        Una <strong>tupla</strong> es una colección ordenada de elementos, similar a una lista, 
+        pero <strong>inmutable</strong> (no se puede modificar después de creada).
+        Se definen con paréntesis <code>()</code>.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos una tupla de números
+numeros = (1, 2, 3, 4, 5)
+
+# Mostramos la tupla completa
+print(numeros)  # Salida: (1, 2, 3, 4, 5)
+
+# Accedemos al primer elemento (índice 0)
+print(numeros[0])  # Salida: 1
+
+# Intentar modificar un elemento genera error
+# numeros[0] = 10  # TypeError: 'tuple' object does not support item assignment
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Crear una tupla de frutas y acceder a sus elementos</h4>
+    <div class="code-editor">
+<pre><code class="python">
+frutas = ("manzana", "banana", "naranja")
+
+print(frutas[1])   # Salida: banana
+print(frutas[-1])  # Salida: naranja
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Convertir una lista en tupla</h4>
+    <div class="code-editor">
+<pre><code class="python">
+lista = [10, 20, 30]
+tupla = tuple(lista)
+
+print(tupla)  # Salida: (10, 20, 30)
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Uso de tuplas en asignación múltiple</h4>
+    <div class="code-editor">
+<pre><code class="python">
+# Asignación múltiple usando tupla
+coordenadas = (4, 7)
+x, y = coordenadas
+
+print("x:", x)  # Salida: x: 4
+print("y:", y)  # Salida: y: 7
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

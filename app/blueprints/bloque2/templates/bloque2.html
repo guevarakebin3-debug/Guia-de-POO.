@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 2: Variables y Tipos de Datos</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las variables?</h3>
+    <p>
+        Una <strong>variable</strong> es un espacio en memoria que almacena un valor. 
+        En Python no necesitas declarar el tipo explícitamente, se asigna automáticamente según el valor.
+    </p>
+
+    <h3>Tipos de datos básicos en Python</h3>
+    <ul>
+        <li><code>int</code>: números enteros (ej. 10, -5)</li>
+        <li><code>float</code>: números decimales (ej. 3.14, -0.5)</li>
+        <li><code>str</code>: cadenas de texto (ej. "Hola")</li>
+        <li><code>bool</code>: valores lógicos (True o False)</li>
+    </ul>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Asignamos diferentes tipos de valores a variables
+numero_entero = 10       # int
+numero_decimal = 3.14    # float
+texto = "Hola Denis"     # str
+es_valido = True         # bool
+
+# Mostramos los valores y sus tipos
+print(numero_entero, type(numero_entero))   # Salida: 10 <class 'int'>
+print(numero_decimal, type(numero_decimal)) # Salida: 3.14 <class 'float'>
+print(texto, type(texto))                   # Salida: Hola Denis <class 'str'>
+print(es_valido, type(es_valido))           # Salida: True <class 'bool'>
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Declara una variable para tu nombre y otra para tu edad</h4>
+    <div class="code-editor">
+<pre><code class="python">
+nombre = "Denis"
+edad = 28
+
+print("Mi nombre es", nombre)  # Salida: Mi nombre es Denis
+print("Tengo", edad, "años")   # Salida: Tengo 28 años
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Convierte un número entero a decimal</h4>
+    <div class="code-editor">
+<pre><code class="python">
+numero = 5
+numero_decimal = float(numero)
+
+print(numero_decimal)  # Salida: 5.0
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Explica la diferencia entre int y float</h4>
+    <p>
+        <code>int</code> representa números enteros sin decimales, mientras que <code>float</code> 
+        representa números con decimales. Ejemplo: <code>10</code> es int, <code>10.0</code> es float.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

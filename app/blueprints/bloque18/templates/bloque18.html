@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 18: Polimorfismo en POO</h2>
+
+<section class="teoria">
+    <h3>¿Qué es el polimorfismo?</h3>
+    <p>
+        El <strong>polimorfismo</strong> permite que diferentes clases implementen métodos con el mismo nombre, 
+        pero con comportamientos distintos.  
+        Esto facilita trabajar con objetos de distintas clases de manera uniforme.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+class Animal:
+    def hablar(self):
+        print("El animal hace un sonido")
+
+class Perro(Animal):
+    def hablar(self):
+        print("El perro dice: ¡Guau!")
+
+class Gato(Animal):
+    def hablar(self):
+        print("El gato dice: ¡Miau!")
+
+# Uso polimórfico
+animales = [Perro(), Gato(), Animal()]
+
+for a in animales:
+    a.hablar()
+
+# Salida:
+# El perro dice: ¡Guau!
+# El gato dice: ¡Miau!
+# El animal hace un sonido
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Clase Figura con polimorfismo</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Figura:
+    def area(self):
+        pass
+
+class Circulo(Figura):
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.14 * self.radio ** 2
+
+class Rectangulo(Figura):
+    def __init__(self, ancho, alto):
+        self.ancho = ancho
+        self.alto = alto
+
+    def area(self):
+        return self.ancho * self.alto
+
+figuras = [Circulo(5), Rectangulo(4, 6)]
+
+for f in figuras:
+    print("Área:", f.area())
+
+# Salida:
+# Área: 78.5
+# Área: 24
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Polimorfismo con métodos comunes</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Vehiculo:
+    def mover(self):
+        print("El vehículo se mueve")
+
+class Bicicleta(Vehiculo):
+    def mover(self):
+        print("La bicicleta avanza con pedales")
+
+class Coche(Vehiculo):
+    def mover(self):
+        print("El coche avanza con motor")
+
+vehiculos = [Bicicleta(), Coche()]
+
+for v in vehiculos:
+    v.mover()
+
+# Salida:
+# La bicicleta avanza con pedales
+# El coche avanza con motor
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Importancia del polimorfismo</h4>
+    <p>
+        El polimorfismo permite diseñar sistemas flexibles y escalables, donde diferentes clases pueden 
+        responder a las mismas llamadas de métodos de manera específica.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

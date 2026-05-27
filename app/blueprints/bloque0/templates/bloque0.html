@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 0: Introducción a la Programación Orientada a Objetos</h2>
+
+<section class="teoria">
+    <h3>¿Qué es la POO?</h3>
+    <p>
+        La Programación Orientada a Objetos (POO) organiza el software alrededor de objetos que representan entidades del mundo real.
+    </p>
+
+    <h3>Clase vs Objeto</h3>
+    <p>
+        Una <strong>Clase</strong> es el molde o plantilla que define atributos y métodos.  
+        Un <strong>Objeto</strong> es la instancia real creada a partir de esa clase.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos una clase llamada Cliente
+class Cliente:
+    def __init__(self, nombre):
+        # El constructor recibe un nombre y lo guarda en el atributo del objeto
+        self.nombre = nombre
+
+# Creamos un objeto (instancia) de la clase Cliente
+cli = Cliente("Daniel")
+
+# Mostramos el atributo nombre del objeto creado
+print(cli.nombre)  # Salida: Daniel
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Identifica 5 clases para modelar un sistema de biblioteca</h4>
+    <p>
+        Clases posibles: <code>Libro</code>, <code>Usuario</code>, <code>Prestamo</code>, <code>Autor</code>, <code>Categoria</code>.
+    </p>
+
+    <h4>Ejercicio 2: Crea la clase Persona con nombre y edad. Instancia 3 objetos diferentes.</h4>
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos la clase Persona con dos atributos: nombre y edad
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+# Creamos tres objetos distintos de la clase Persona
+p1 = Persona("Ana", 25)
+p2 = Persona("Luis", 30)
+p3 = Persona("María", 22)
+
+# Mostramos los atributos de cada objeto
+print(p1.nombre, p1.edad)  # Salida: Ana 25
+print(p2.nombre, p2.edad)  # Salida: Luis 30
+print(p3.nombre, p3.edad)  # Salida: María 22
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Explica la diferencia entre clase y objeto</h4>
+    <p>
+        Una <strong>clase</strong> es el plano o molde, mientras que un <strong>objeto</strong> es la construcción real creada a partir de ese plano.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

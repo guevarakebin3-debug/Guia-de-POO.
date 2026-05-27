@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 12: Excepciones en Python</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las excepciones?</h3>
+    <p>
+        Una <strong>excepción</strong> ocurre cuando se produce un error en tiempo de ejecución.  
+        El manejo de excepciones permite que el programa no se detenga y pueda reaccionar al error.
+    </p>
+
+    <h3>Estructura completa</h3>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    # Código que puede fallar
+    numero = int("abc")
+except ValueError as e:
+    # Manejo del error
+    print("Error de conversión:", e)
+else:
+    # Se ejecuta si NO hubo error
+    print("Conversión exitosa")
+finally:
+    # Se ejecuta SIEMPRE
+    print("Bloque finally ejecutado")
+</code></pre>
+    </div>
+
+    <h3>Tipos de errores comunes</h3>
+    <ul>
+        <li><code>ValueError</code> → valor inválido (ej. int("abc"))</li>
+        <li><code>TypeError</code> → tipo incorrecto (ej. str + int)</li>
+        <li><code>IndexError</code> → índice fuera de rango</li>
+        <li><code>KeyError</code> → clave inexistente en dict/set</li>
+        <li><code>ZeroDivisionError</code> → división entre cero</li>
+        <li><code>FileNotFoundError</code> → archivo no encontrado</li>
+    </ul>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Capturar ValueError</h4>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    numero = int(input("Ingrese un número: "))
+    print("Número ingresado:", numero)
+except ValueError:
+    print("Error: Debe ingresar un número válido")
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Capturar IndexError</h4>
+    <div class="code-editor">
+<pre><code class="python">
+lista = [1, 2, 3]
+try:
+    print(lista[5])
+except IndexError:
+    print("Error: índice fuera de rango")
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Manejar múltiples excepciones</h4>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    num = int("abc")  # ValueError
+    resultado = 10 / 0  # ZeroDivisionError
+except ValueError:
+    print("Error de conversión")
+except ZeroDivisionError:
+    print("Error: división entre cero")
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

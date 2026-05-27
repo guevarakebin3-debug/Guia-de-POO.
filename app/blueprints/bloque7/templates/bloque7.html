@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 7: Funciones en Python</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las funciones?</h3>
+    <p>
+        Una <strong>función</strong> es un bloque de código reutilizable que realiza una tarea específica.  
+        Se define con la palabra clave <code>def</code> y puede recibir parámetros y devolver valores.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos una función simple
+def saludar():
+    print("Hola, bienvenido a Python")
+
+# Llamamos a la función
+saludar()  # Salida: Hola, bienvenido a Python
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Función con parámetros</h4>
+    <div class="code-editor">
+<pre><code class="python">
+def sumar(a, b):
+    resultado = a + b
+    return resultado
+
+print(sumar(5, 3))  # Salida: 8
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Función que devuelve un valor</h4>
+    <div class="code-editor">
+<pre><code class="python">
+def cuadrado(numero):
+    return numero ** 2
+
+print(cuadrado(4))  # Salida: 16
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Función con valores por defecto</h4>
+    <div class="code-editor">
+<pre><code class="python">
+def presentar(nombre, edad=18):
+    print("Nombre:", nombre)
+    print("Edad:", edad)
+
+presentar("Ana")        # Salida: Nombre: Ana / Edad: 18
+presentar("Luis", 25)   # Salida: Nombre: Luis / Edad: 25
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

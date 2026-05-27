@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 1: El constructor <code>__init__</code></h2>
+
+<section class="teoria">
+    <h3>¿Qué es el constructor <code>__init__</code>?</h3>
+    <p>
+        El método <code>__init__</code> es especial en Python y se ejecuta automáticamente 
+        cuando se crea un objeto. Sirve para inicializar los atributos de la clase.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos una clase Persona
+class Persona:
+    def __init__(self, nombre, edad):
+        # El constructor recibe parámetros y los asigna a atributos del objeto
+        self.nombre = nombre
+        self.edad = edad
+
+# Creamos un objeto de la clase Persona
+p1 = Persona("Ana", 25)
+
+# Mostramos los atributos inicializados
+print(p1.nombre)  # Salida: Ana
+print(p1.edad)    # Salida: 25
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Crea una clase Coche con atributos marca y modelo</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Coche:
+    def __init__(self, marca, modelo):
+        # Guardamos los valores recibidos en atributos
+        self.marca = marca
+        self.modelo = modelo
+
+# Instanciamos un objeto de tipo Coche
+c1 = Coche("Toyota", "Corolla")
+
+# Mostramos los atributos inicializados
+print(c1.marca)   # Salida: Toyota
+print(c1.modelo)  # Salida: Corolla
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Explica qué sucede si no defines <code>__init__</code></h4>
+    <p>
+        Si no defines <code>__init__</code>, Python crea un constructor por defecto que no inicializa atributos. 
+        Podrás crear objetos, pero no tendrán valores iniciales asignados automáticamente.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

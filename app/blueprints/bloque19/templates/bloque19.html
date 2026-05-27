@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 19: Abstracción en POO</h2>
+
+<section class="teoria">
+    <h3>¿Qué es la abstracción?</h3>
+    <p>
+        La <strong>abstracción</strong> consiste en definir métodos que deben ser implementados por las clases hijas, 
+        sin especificar su funcionamiento en la clase base.  
+        En Python se logra usando <code>abc</code> (Abstract Base Classes).
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+from abc import ABC, abstractmethod
+
+# Clase abstracta
+class Figura(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+# Clase concreta que implementa el método
+class Circulo(Figura):
+    def __init__(self, radio):
+        self.radio = radio
+
+    def area(self):
+        return 3.14 * self.radio ** 2
+
+c1 = Circulo(5)
+print("Área del círculo:", c1.area())  # Salida: 78.5
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Clase abstracta Animal</h4>
+    <div class="code-editor">
+<pre><code class="python">
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    @abstractmethod
+    def sonido(self):
+        pass
+
+class Perro(Animal):
+    def sonido(self):
+        return "Guau"
+
+class Gato(Animal):
+    def sonido(self):
+        return "Miau"
+
+animales = [Perro(), Gato()]
+for a in animales:
+    print(a.sonido())
+
+# Salida:
+# Guau
+# Miau
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Clase abstracta Vehículo</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Vehiculo(ABC):
+    @abstractmethod
+    def mover(self):
+        pass
+
+class Bicicleta(Vehiculo):
+    def mover(self):
+        return "Avanza con pedales"
+
+class Coche(Vehiculo):
+    def mover(self):
+        return "Avanza con motor"
+
+v1 = Bicicleta()
+v2 = Coche()
+print(v1.mover())  # Avanza con pedales
+print(v2.mover())  # Avanza con motor
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Importancia de la abstracción</h4>
+    <p>
+        La abstracción permite definir contratos claros, asegurando que todas las clases hijas implementen 
+        los métodos necesarios, lo que mejora la consistencia y organización del código.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

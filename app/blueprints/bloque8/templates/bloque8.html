@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 8: Listas en Python</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las listas?</h3>
+    <p>
+        Una <strong>lista</strong> es una estructura de datos que permite almacenar múltiples valores en una sola variable.
+        Se definen con corchetes <code>[]</code> y pueden contener distintos tipos de datos.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos una lista de números
+numeros = [1, 2, 3, 4, 5]
+
+# Mostramos la lista completa
+print(numeros)  # Salida: [1, 2, 3, 4, 5]
+
+# Accedemos al primer elemento (índice 0)
+print(numeros[0])  # Salida: 1
+
+# Accedemos al último elemento
+print(numeros[-1])  # Salida: 5
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Agregar y eliminar elementos de una lista</h4>
+    <div class="code-editor">
+<pre><code class="python">
+frutas = ["manzana", "banana", "naranja"]
+
+# Agregar un elemento al final
+frutas.append("uva")
+print(frutas)  # Salida: ['manzana', 'banana', 'naranja', 'uva']
+
+# Eliminar un elemento específico
+frutas.remove("banana")
+print(frutas)  # Salida: ['manzana', 'naranja', 'uva']
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Recorrer una lista con for</h4>
+    <div class="code-editor">
+<pre><code class="python">
+colores = ["rojo", "verde", "azul"]
+
+for color in colores:
+    print("Color:", color)
+
+# Salida:
+# Color: rojo
+# Color: verde
+# Color: azul
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Uso de slicing (rebanado)</h4>
+    <div class="code-editor">
+<pre><code class="python">
+numeros = [10, 20, 30, 40, 50]
+
+# Obtener los primeros 3 elementos
+print(numeros[:3])  # Salida: [10, 20, 30]
+
+# Obtener los últimos 2 elementos
+print(numeros[-2:])  # Salida: [40, 50]
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

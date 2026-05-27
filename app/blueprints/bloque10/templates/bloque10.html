@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 10: Diccionarios en Python</h2>
+
+<section class="teoria">
+    <h3>¿Qué son los diccionarios?</h3>
+    <p>
+        Un <strong>diccionario</strong> es una estructura de datos que almacena pares <code>clave: valor</code>.  
+        Se definen con llaves <code>{}</code> y permiten acceder a los valores usando sus claves.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Definimos un diccionario de estudiante
+estudiante = {
+    "nombre": "Ana",
+    "edad": 22,
+    "carrera": "Ingeniería"
+}
+
+# Accedemos a un valor usando la clave
+print(estudiante["nombre"])   # Salida: Ana
+
+# Agregamos una nueva clave-valor
+estudiante["promedio"] = 9.1
+print(estudiante)  # Salida: {'nombre': 'Ana', 'edad': 22, 'carrera': 'Ingeniería', 'promedio': 9.1}
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Crear un diccionario de país</h4>
+    <div class="code-editor">
+<pre><code class="python">
+pais = {
+    "nombre": "Ecuador",
+    "capital": "Quito",
+    "poblacion": 18_000_000
+}
+
+print(pais["capital"])  # Salida: Quito
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Recorrer un diccionario con for</h4>
+    <div class="code-editor">
+<pre><code class="python">
+for clave, valor in pais.items():
+    print(clave, ":", valor)
+
+# Salida:
+# nombre : Ecuador
+# capital : Quito
+# poblacion : 18000000
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Verificar si una clave existe</h4>
+    <div class="code-editor">
+<pre><code class="python">
+if "capital" in pais:
+    print("La clave 'capital' existe")  # Salida: La clave 'capital' existe
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}
+

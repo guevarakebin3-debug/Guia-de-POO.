@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 13: Manejo de errores con try/except</h2>
+
+<section class="teoria">
+    <h3>¿Qué es el manejo de errores?</h3>
+    <p>
+        El manejo de errores permite que el programa no se detenga cuando ocurre una excepción.  
+        En Python usamos <code>try</code> para ejecutar código y <code>except</code> para capturar errores.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Ejemplo básico de manejo de errores
+try:
+    numero = int("abc")  # Esto genera un ValueError
+    print(numero)
+except ValueError:
+    print("Error: no se pudo convertir a número")
+
+# Salida: Error: no se pudo convertir a número
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: División entre cero</h4>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    resultado = 10 / 0
+    print(resultado)
+except ZeroDivisionError:
+    print("Error: división entre cero")
+
+# Salida: Error: división entre cero
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Capturar múltiples excepciones</h4>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    lista = [1, 2, 3]
+    print(lista[5])  # IndexError
+except ValueError:
+    print("Error de valor")
+except IndexError:
+    print("Error: índice fuera de rango")
+
+# Salida: Error: índice fuera de rango
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Uso de finally</h4>
+    <div class="code-editor">
+<pre><code class="python">
+try:
+    archivo = open("datos.txt", "r")
+    contenido = archivo.read()
+    print(contenido)
+except FileNotFoundError:
+    print("Error: archivo no encontrado")
+finally:
+    print("Bloque finally ejecutado siempre")
+
+# Salida:
+# Error: archivo no encontrado
+# Bloque finally ejecutado siempre
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

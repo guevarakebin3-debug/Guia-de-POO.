@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 5: Condicionales if, elif, else</h2>
+
+<section class="teoria">
+    <h3>¿Qué son las estructuras condicionales?</h3>
+    <p>
+        Las estructuras condicionales permiten ejecutar diferentes bloques de código según se cumpla o no una condición.
+        En Python usamos <code>if</code>, <code>elif</code> y <code>else</code>.
+    </p>
+
+    <div class="code-editor">
+<pre><code class="python">
+# Ejemplo básico de condicional
+edad = 18
+
+if edad >= 18:
+    print("Eres mayor de edad")   # Se ejecuta porque edad es 18
+else:
+    print("Eres menor de edad")
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Clasifica un número como positivo, negativo o cero</h4>
+    <div class="code-editor">
+<pre><code class="python">
+numero = -3
+
+if numero > 0:
+    print("El número es positivo")
+elif numero < 0:
+    print("El número es negativo")
+else:
+    print("El número es cero")
+
+# Salida: El número es negativo
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Verifica si un estudiante aprueba o reprueba</h4>
+    <div class="code-editor">
+<pre><code class="python">
+nota = 7
+
+if nota >= 7:
+    print("Aprobado")
+else:
+    print("Reprobado")
+
+# Salida: Aprobado
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Determina el rango de edad</h4>
+    <div class="code-editor">
+<pre><code class="python">
+edad = 25
+
+if edad < 12:
+    print("Niño")
+elif edad < 18:
+    print("Adolescente")
+elif edad < 65:
+    print("Adulto")
+else:
+    print("Adulto mayor")
+
+# Salida: Adulto
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

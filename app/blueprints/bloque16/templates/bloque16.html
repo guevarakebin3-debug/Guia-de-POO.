@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 16: Encapsulamiento en POO</h2>
+
+<section class="teoria">
+    <h3>¿Qué es el encapsulamiento?</h3>
+    <p>
+        El <strong>encapsulamiento</strong> consiste en ocultar los detalles internos de una clase y 
+        controlar el acceso a sus atributos y métodos.  
+        En Python se logra usando convenciones como:
+    </p>
+    <ul>
+        <li><code>atributo</code> → Público</li>
+        <li><code>_atributo</code> → Protegido (convención)</li>
+        <li><code>__atributo</code> → Privado (name mangling)</li>
+    </ul>
+
+    <div class="code-editor">
+<pre><code class="python">
+class CuentaBancaria:
+    def __init__(self, titular, saldo):
+        self.titular = titular      # Público
+        self._saldo = saldo         # Protegido
+        self.__pin = "1234"         # Privado
+
+    def mostrar_saldo(self):
+        print("Saldo:", self._saldo)
+
+    def validar_pin(self, pin):
+        if pin == self.__pin:
+            print("Acceso permitido")
+        else:
+            print("Acceso denegado")
+
+cuenta = CuentaBancaria("Denis", 1000)
+
+# Acceso público
+print(cuenta.titular)  # Salida: Denis
+
+# Acceso protegido (convención: no debería usarse fuera de la clase)
+print(cuenta._saldo)   # Salida: 1000
+
+# Acceso privado (genera error)
+# print(cuenta.__pin)  # AttributeError
+</code></pre>
+    </div>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Crear una clase con atributo privado</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Usuario:
+    def __init__(self, nombre, password):
+        self.nombre = nombre
+        self.__password = password
+
+    def validar(self, intento):
+        return intento == self.__password
+
+u1 = Usuario("Ana", "secreto")
+print(u1.validar("secreto"))  # True
+print(u1.validar("1234"))     # False
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Usar métodos para acceder a atributos privados</h4>
+    <div class="code-editor">
+<pre><code class="python">
+class Producto:
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.__precio = precio
+
+    def get_precio(self):
+        return self.__precio
+
+    def set_precio(self, nuevo_precio):
+        if nuevo_precio > 0:
+            self.__precio = nuevo_precio
+
+p1 = Producto("Laptop", 1200)
+print(p1.get_precio())  # 1200
+p1.set_precio(1500)
+print(p1.get_precio())  # 1500
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Explica la importancia del encapsulamiento</h4>
+    <p>
+        El encapsulamiento protege los datos de accesos indebidos, mantiene la integridad de la información 
+        y permite controlar cómo se modifican los atributos de una clase.
+    </p>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}

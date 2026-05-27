@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Bloque 4: Entrada y salida en Python</h2>
+
+<section class="teoria">
+    <h3>Salida con print()</h3>
+    <p>
+        La función <code>print()</code> muestra información en pantalla.  
+        Admite f-strings, y parámetros como <code>sep</code> y <code>end</code>.
+    </p>
+    <div class="code-editor">
+<pre><code class="python">
+nombre = "Ana"
+edad = 25
+
+print("Nombre:", nombre)  
+# Salida: Nombre: Ana
+
+print(f"Nombre: {nombre}, Edad: {edad}")  
+# Salida: Nombre: Ana, Edad: 25
+
+print("Python", "Java", sep=" - ", end=" !\n")  
+# Salida: Python - Java !
+</code></pre>
+    </div>
+
+    <h3>Entrada con input()</h3>
+    <p>
+        La función <code>input()</code> lee datos del usuario.  
+        Siempre devuelve un <code>str</code>, por lo que es necesario convertirlo si se requiere otro tipo.
+    </p>
+    <div class="code-editor">
+<pre><code class="python">
+nombre = input("Ingrese su nombre: ")
+edad = int(input("Ingrese su edad: "))   # casting a int
+altura = float(input("Ingrese su altura: ")) # casting a float
+
+print(f"{nombre} tiene {edad} años y mide {altura} m")
+</code></pre>
+    </div>
+
+    <h3>Casting (conversión de tipos)</h3>
+    <p>
+        Se usa para transformar el texto leído en otro tipo de dato:
+        <code>int()</code>, <code>float()</code>, <code>str()</code>.
+    </p>
+</section>
+
+<section class="ejercicios">
+    <h3>Ejercicios resueltos</h3>
+
+    <h4>Ejercicio 1: Solicitar nombre y edad</h4>
+    <div class="code-editor">
+<pre><code class="python">
+nombre = input("Nombre: ")
+edad = int(input("Edad: "))
+print(f"Hola {nombre}, tienes {edad} años")
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 2: Suma y promedio</h4>
+    <div class="code-editor">
+<pre><code class="python">
+num1 = int(input("Número 1: "))
+num2 = int(input("Número 2: "))
+
+suma = num1 + num2
+promedio = suma / 2
+
+print(f"Suma: {suma}, Promedio: {promedio}")
+</code></pre>
+    </div>
+
+    <h4>Ejercicio 3: Input sin conversión</h4>
+    <div class="code-editor">
+<pre><code class="python">
+numero = input("Ingrese un número: ")
+print(numero + "5")
+
+# Si ingresamos "10" → salida: "105"
+# Se concatena como texto, no se suma.
+</code></pre>
+    </div>
+</section>
+
+<!-- Botón de regreso -->
+<a href="{{ url_for('index') }}" class="btn-back">⬅ Volver al inicio</a>
+{% endblock %}
