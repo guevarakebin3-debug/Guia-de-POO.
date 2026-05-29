@@ -1,1 +1,280 @@
+```html
+{% extends "base.html" %}
+{% block title %}PyOOP — Test Relaciones UML{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="hero__left">
+    <div class="hero__eyebrow fade-up">
+      <span class="badge badge--amber">TEST</span>
+      <span class="badge badge--green">✓ UML</span>
+      <span class="badge badge--blue">POO Python</span>
+    </div>
+
+    <h1 class="hero__title fade-up">
+      Test de<br>
+      <span class="text-gradient">Relaciones UML</span><br>
+    </h1>
+
+    <p class="hero__subtitle fade-up">
+      Practica herencia, agregación, composición e interfaces usando programación orientada a objetos en Python.
+    </p>
+
+    <div class="hero__ctas fade-up">
+      <a href="#ejercicios" class="btn btn--primary btn--lg">
+        Ir a Ejercicios
+      </a>
+
+      <a href="{{ url_for('index') }}" class="btn btn--ghost btn--lg">
+        ⬅ Volver al inicio
+      </a>
+    </div>
+  </div>
+
+  <div class="hero__right fade-up">
+
+    <div class="hero__pills">
+      <span class="pill pill--amber">Herencia</span>
+      <span class="pill pill--green">Agregación</span>
+      <span class="pill pill--blue">Composición</span>
+      <span class="pill pill--purple">Interfaces</span>
+    </div>
+
+  </div>
+</section>
+
+<section class="blocks-section" id="ejercicios">
+
+  <div class="section-header fade-up">
+    <span class="section-header__tag">Práctica</span>
+    <h2 class="section-header__title">Ejercicios Resueltos</h2>
+  </div>
+
+  <div class="blocks-grid">
+
+    <!-- ========================= -->
+    <!-- EJERCICIO 1 -->
+    <!-- ========================= -->
+
+    <div class="block-card block-card--featured fade-up" style="grid-column: 1 / -1; cursor: default; min-width: 0;">
+      <div class="block-card__number">01</div>
+      <div class="block-card__icon">📚</div>
+
+      <h3 class="block-card__title">
+        Ejercicio 1: Relaciones UML Integradas
+      </h3>
+
+      <p class="block-card__desc" style="margin-bottom: 1.5rem;">
+        Identifica herencia, interfaz, agregación y dependencia dentro de un sistema de reservas.
+      </p>
+
+      <div class="code-window" style="text-align: left; width: 100%; overflow-x: auto;">
+
+        <div class="code-window__header">
+          <span class="code-window__title">hotel_reserva.py</span>
+
+          <button class="btn-copy" data-target="code-ejercicio1" title="Copiar código">
+            Copiar
+          </button>
+        </div>
+
+<pre id="code-ejercicio1" style="margin: 0; overflow-x: auto;"><code class="language-python">from abc import ABC, abstractmethod
+
+class IGestion(ABC):
+
+    @abstractmethod
+    def registrar(self):
+        pass
+
+class Hotel:
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+class Persona:
+
+    def __init__(self, cedula, nombre):
+        self.cedula = cedula
+        self.nombre = nombre
+
+class Huesped(Persona):   # HERENCIA
+    def __init__(self, cedula, nombre, telefono):
+        super().__init__(cedula, nombre)
+        self.telefono = telefono
+
+class Habitacion:
+
+    def __init__(self, numero, precio):
+        self.numero = numero
+        self.precio = precio
+
+
+class DetalleReserva:
+
+    def __init__(self, habitacion, dias):
+        self.habitacion = habitacion
+        self.dias = dias
+
+    def subtotal(self):
+        return self.habitacion.precio * self.dias
+
+
+class Reserva(IGestion):   # INTERFAZ
+
+    def __init__(self, huesped):   # AGREGACIÓN
+        self.huesped = huesped
+        self.detalles = []
+
+    def agregar_habitacion(self, habitacion, dias):
+
+        self.detalles.append(DetalleReserva(habitacion, dias))
+
+    def registrar(self, hotel):
+
+        print("Hotel:", hotel.nombre)
+        print("Reserva registrada")
+
+    def total(self):
+        return sum(d.subtotal() for d in self.detalles)
+
+
+h1 = Habitacion(101, 50)
+h2 = Habitacion(202, 80)
+
+cliente = Huesped("0912345678", "Carlos Pérez", "0999999999")
+
+reserva = Reserva(cliente)
+
+reserva.agregar_habitacion(h1, 2)
+reserva.agregar_habitacion(h2, 1)
+
+hotel = Hotel("Hotel Paraíso")
+
+reserva.registrar(hotel)
+
+print("Huésped:", reserva.huesped.nombre)
+print("Total:", reserva.total())
+</code></pre>
+
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- EJERCICIO 2 -->
+    <!-- ========================= -->
+
+    <div class="block-card block-card--featured fade-up" style="grid-column: 1 / -1; cursor: default; min-width: 0;">
+
+      <div class="block-card__number">02</div>
+      <div class="block-card__icon">🏢</div>
+
+      <h3 class="block-card__title">
+        Ejercicio 2: Herencia UML
+      </h3>
+
+      <p class="block-card__desc" style="margin-bottom: 1.5rem;">
+        Implementa una relación de herencia entre Persona y Administrador.
+      </p>
+
+      <div class="code-window" style="text-align: left; width: 100%; overflow-x: auto;">
+
+        <div class="code-window__header">
+          <span class="code-window__title">herencia_admin.py</span>
+
+          <button class="btn-copy" data-target="code-ejercicio2" title="Copiar código">
+            Copiar
+          </button>
+        </div>
+
+<pre id="code-ejercicio2" style="margin: 0; overflow-x: auto;"><code class="language-python">class Persona:
+    def __init__(self, cargo):
+        self.cargo = cargo
+
+
+class Administrador(Persona):
+    def __init__(self, cargo):
+        super().__init__(cargo)
+        self.cargo = cargo
+
+print("Es una relacion herencia porque administrador hereda de persona")
+</code></pre>
+
+      </div>
+    </div>
+
+    <!-- ========================= -->
+    <!-- EJERCICIO 3 -->
+    <!-- ========================= -->
+
+    <div class="block-card block-card--featured fade-up" style="grid-column: 1 / -1; cursor: default; min-width: 0;">
+
+      <div class="block-card__number">03</div>
+      <div class="block-card__icon">🏠</div>
+
+      <h3 class="block-card__title">
+        Ejercicio 3: Composición UML
+      </h3>
+
+      <p class="block-card__desc" style="margin-bottom: 1.5rem;">
+        Implementa una relación de composición entre FacturaHospedaje y DetalleFactura.
+      </p>
+
+      <div class="code-window" style="text-align: left; width: 100%; overflow-x: auto;">
+
+        <div class="code-window__header">
+          <span class="code-window__title">factura_hospedaje.py</span>
+
+          <button class="btn-copy" data-target="code-ejercicio3" title="Copiar código">
+            Copiar
+          </button>
+        </div>
+
+<pre id="code-ejercicio3" style="margin: 0; overflow-x: auto;"><code class="language-python">class DetalleFactura:
+    def __init__(self, descripcion):
+        self.descripcion = descripcion
+
+
+class FacturaHospedaje:
+    def __init__(self):
+        self.detalle = DetalleFactura("Hospedaje")
+</code></pre>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.btn-copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+
+    const targetId = btn.dataset.target;
+    const codeEl = document.getElementById(targetId);
+
+    if (codeEl) {
+
+      navigator.clipboard.writeText(codeEl.innerText).then(() => {
+
+        const orig = btn.innerHTML;
+
+        btn.innerHTML = '✓ Copiado';
+        btn.style.color = '#10b981';
+
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.style.color = '';
+        }, 2000);
+
+      });
+
+    }
+
+  });
+});
+</script>
+
+{% endblock %}
+```
 
